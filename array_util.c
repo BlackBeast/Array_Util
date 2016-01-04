@@ -4,7 +4,7 @@
 
 ArrayUtil create(int type_size,int length){
   ArrayUtil arr_util;
-  arr_util.base =(void *)calloc(type_size,length);
+  arr_util.base =(void *)calloc(length,type_size);
   arr_util.length = length;
   arr_util.type_size = type_size;
   return arr_util;
