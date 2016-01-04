@@ -35,3 +35,11 @@ ArrayUtil resize(ArrayUtil arr,int length){
   arr.length =length;
   return arr;
 };
+
+int findIndex(ArrayUtil arr,void* element){
+  for (int i = 0; i < arr.length; i++) {
+    if(((int *)arr.base)[i]==element)
+      return i;
+  };
+  return -1;
+};

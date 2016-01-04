@@ -7,3 +7,4 @@ typedef struct array_util{
 ArrayUtil create (int,int);
 int areEqual(ArrayUtil ,ArrayUtil);
 ArrayUtil resize(ArrayUtil,int);
+int findIndex (ArrayUtil,void*);
