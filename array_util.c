@@ -29,3 +29,9 @@ int areEqual(ArrayUtil arr1,ArrayUtil arr2){
   }
   return 0;
 };
+
+ArrayUtil resize(ArrayUtil arr,int length){
+  realloc(arr.base,(length*arr.type_size));
+  arr.length =length;
+  return arr;
+};
