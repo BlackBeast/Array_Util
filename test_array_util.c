@@ -60,14 +60,16 @@ void test_for_resize_array_to_reduce_length_of_the_array(){
 void test_for_finding_index_of_the_value_if_it_is_in_the_array(){
   ArrayUtil arr_util=create(4,5);
   ((int *)arr_util.base)[3]=5;
-  assert(findIndex(arr_util,(int*)5)==3);
+  int ele = 5;
+  assert(findIndex(arr_util,&ele)==3);
   printf("✓ test_for_finding_index_of_the_value_if_it_is_in_the_array\n\n");
 };
 
 void test_for_finding_index_of_the_value_which_is_not_in_the_array(){
   ArrayUtil arr_util=create(4,5);
   ((int *)arr_util.base)[3]=4;
-  assert(findIndex(arr_util,(int*)5)== -1);
+  int ele = 5;
+  assert(findIndex(arr_util,&ele)== -1);
   printf("✓ test_for_finding_index_of_the_value_which_is_not_in_the_array\n\n");
 };
 

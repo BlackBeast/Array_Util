@@ -28,8 +28,9 @@ ArrayUtil resize(ArrayUtil arr,int length){
 };
 
 int findIndex(ArrayUtil arr,void* element){
+  void *base = arr.base;
   for (int i = 0; i < arr.length; i++) {
-    if(((int *)arr.base)[i]==element)
+    if(memcmp(base+(i*arr.type_size),element,arr.type_size)==0)
       return i;
   };
   return -1;
