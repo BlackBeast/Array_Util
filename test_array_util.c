@@ -71,6 +71,12 @@ void test_for_finding_index_of_the_value_which_is_not_in_the_array(){
   printf("✓ test_for_finding_index_of_the_value_which_is_not_in_the_array\n\n");
 };
 
+void test_for_dispose(){
+  ArrayUtil arr_util=create(4,5);
+  dispose(arr_util);
+  printf("✓ test_for_dispose\n");
+}
+
 int main (void){
   test_create_returns_new_array_utils();
   test_create_wheather_the_values_are_0_after_allocating_memmory();
@@ -81,5 +87,6 @@ int main (void){
   test_for_resize_array_to_reduce_length_of_the_array();
   test_for_finding_index_of_the_value_if_it_is_in_the_array();
   test_for_finding_index_of_the_value_which_is_not_in_the_array();
+  test_for_dispose();
   return 0;
 };

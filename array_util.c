@@ -43,3 +43,7 @@ int findIndex(ArrayUtil arr,void* element){
   };
   return -1;
 };
+
+void dispose(ArrayUtil arr){
+  free(arr.base);
+};
