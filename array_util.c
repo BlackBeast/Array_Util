@@ -57,3 +57,13 @@ void * findLast(ArrayUtil arr, MatchFunc* func, void* hint){
 	}
 	return NULL;
 };
+
+int count(ArrayUtil util, MatchFunc* match, void* hint){
+	int count=0;
+	for(int i=0; i<util.length; i++){
+		void *item = util.base+(i * util.type_size);
+		if(match(hint, item))
+			count++;
+	}
+	return count;
+};

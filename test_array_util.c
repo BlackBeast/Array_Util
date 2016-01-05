@@ -131,7 +131,7 @@ void test_findLast_returns_pointer_of_the_first_element_from_last_that_matches_c
 	assert(*element==5);
 	dispose(arr_util);
   printf("✓ test_findLast_returns_pointer_of_the_first_element_from_last_that_matches_criteria_for_isDivisible\n\n");
-}
+};
 
 void test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isDivisible () {
   ArrayUtil arr_util = create(4, 5);
@@ -143,7 +143,44 @@ void test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isD
 	assert(element==NULL);
 	dispose(arr_util);
   printf("✓ test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isDivisible\n\n");
-}
+};
+
+
+void test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria() {
+  ArrayUtil arr_util = create(4, 5);
+	int array[] = {1,2,3,4,5};
+	int element;
+	insertElements(&arr_util, array);
+	element = count(arr_util, isEven, NULL);
+	assert(element==2);
+	dispose(arr_util);
+  printf("✓ test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria\n\n");
+
+};
+
+void test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria_for_isDivisible() {
+  ArrayUtil arr_util = create(4, 5);
+	int array[] = {1,2,3,4,5};
+	int element;
+	int ele = 2;
+	insertElements(&arr_util, array);
+	element = count(arr_util, isDivisible, &ele);
+	assert(element==2);
+	dispose(arr_util);
+  printf("✓ test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria_for_isDivisible\n\n");
+};
+
+void test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria() {
+	int array[] = {1,3,5,7,9};
+	int element;
+	ArrayUtil arr_util = create(4, 5);
+	insertElements(&arr_util, array);
+	element = count(arr_util, isEven, NULL);
+	assert(element==0);
+	dispose(arr_util);
+  printf("✓ test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria\n\n");
+};
+
 int main (void){
   test_create_returns_new_array_utils();
   test_create_wheather_the_values_are_0_after_allocating_memmory();
@@ -159,5 +196,8 @@ int main (void){
   test_findfirst_gives_null_when_does_not_match_the_critiria();
   test_findLast_returns_pointer_of_the_first_element_from_last_that_matches_criteria_for_isDivisible();
   test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isDivisible();
+  test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria();
+  test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria_for_isDivisible();
+  test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria();
   return 0;
 };
