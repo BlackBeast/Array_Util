@@ -39,3 +39,12 @@ int findIndex(ArrayUtil arr,void* element){
 void dispose(ArrayUtil arr){
   free(arr.base);
 };
+
+void* findFirst(ArrayUtil util, MatchFunc* match, void* hint){
+  for (int i = 0; i < util.length; i++) {
+    void *item = util.base + (i * util.type_size);
+    if(match(hint,item) == 1)
+      return item;
+  }
+  return NULL;
+};

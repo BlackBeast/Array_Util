@@ -77,7 +77,49 @@ void test_for_dispose(){
   ArrayUtil arr_util=create(4,5);
   dispose(arr_util);
   printf("✓ test_for_dispose\n");
-}
+};
+
+void insertElements(ArrayUtil *list, void *array) {
+	char *arrayByBit = array;
+	char *baseByBit = list->base;
+	for(int i=0; i<(list->length)*(list->type_size); i++){
+			baseByBit[i]=arrayByBit[i];
+	}
+};
+
+int isEven(void* hint, void* item){
+  int *value = item;
+  if((*value)%2 == 0) return 1;
+  return 0;
+};
+
+int isDivisible(void* hint, void* item){
+  int *dividend = item;
+  int *devisor = hint;
+  if((*dividend)%(*devisor)==0) return 1;
+  return 0;
+};
+
+void test_findfirst_gives_the_first_element_that_matches_the_critiria() {
+  ArrayUtil util = create(4,5);
+  int array[] = {1,2,3,4};
+  MatchFunc *f = &isEven;
+  insertElements(&util,array);
+  int *element = findFirst(util,f,NULL);
+  assert(*element==2);
+  printf("✓ test_findfirst_gives_the_first_element_that_matches_the_critiria\n");
+};
+
+void test_findfirst_gives_null_when_does_not_match_the_critiria() {
+  ArrayUtil util = create(4,5);
+  int array[] = {1,2,3,4};
+  int a = 5;
+  MatchFunc *f = &isDivisible;
+  insertElements(&util,array);
+  void *element = findFirst(util,f,&a);
+  assert(element==NULL);
+  printf("✓ test_findfirst_gives_null_when_does_not_match_the_critiria\n");
+};
 
 int main (void){
   test_create_returns_new_array_utils();
@@ -90,5 +132,7 @@ int main (void){
   test_for_finding_index_of_the_value_if_it_is_in_the_array();
   test_for_finding_index_of_the_value_which_is_not_in_the_array();
   test_for_dispose();
+  test_findfirst_gives_the_first_element_that_matches_the_critiria();
+  test_findfirst_gives_null_when_does_not_match_the_critiria();
   return 0;
 };
