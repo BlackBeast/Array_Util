@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "array_util.h"
 
 ArrayUtil create(int type_size,int length){
@@ -11,22 +12,12 @@ ArrayUtil create(int type_size,int length){
 };
 
 int areEqual(ArrayUtil arr1,ArrayUtil arr2){
-  int size = arr1.length * arr1.type_size;
-  char *a;
-  char *b;
-  if(arr1.length == arr2.length && arr1.type_size == arr2.type_size){
-    while(size){
-      a = arr1.base;
-      b = arr2.base;
-      if(*a != *b){
+  if(arr1.length == arr2.length && arr1.type_size == arr2.type_size)
+    for (size_t i = 0; i < arr1.length; i++) {
+      if(memcmp(arr1.base+(i*arr1.type_size),arr2.base+(i*arr2.type_size),arr1.type_size)!=0)
         return 0;
-      }
-      arr1.base++;
-      arr2.base++;
-      size--;
+      return 1;
     }
-    return 1;
-  }
   return 0;
 };
 
