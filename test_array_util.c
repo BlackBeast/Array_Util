@@ -76,7 +76,7 @@ void test_for_finding_index_of_the_value_which_is_not_in_the_array(){
 void test_for_dispose(){
   ArrayUtil arr_util=create(4,5);
   dispose(arr_util);
-  printf("✓ test_for_dispose\n");
+  printf("✓ test_for_dispose\n\n");
 };
 
 void insertElements(ArrayUtil *list, void *array) {
@@ -101,26 +101,49 @@ int isDivisible(void* hint, void* item){
 };
 
 void test_findfirst_gives_the_first_element_that_matches_the_critiria() {
-  ArrayUtil util = create(4,5);
+  ArrayUtil arr_util = create(4,5);
   int array[] = {1,2,3,4};
   MatchFunc *f = &isEven;
-  insertElements(&util,array);
-  int *element = findFirst(util,f,NULL);
+  insertElements(&arr_util,array);
+  int *element = findFirst(arr_util,f,NULL);
   assert(*element==2);
-  printf("✓ test_findfirst_gives_the_first_element_that_matches_the_critiria\n");
+  printf("✓ test_findfirst_gives_the_first_element_that_matches_the_critiria\n\n");
 };
 
 void test_findfirst_gives_null_when_does_not_match_the_critiria() {
-  ArrayUtil util = create(4,5);
+  ArrayUtil arr_util = create(4,5);
   int array[] = {1,2,3,4};
-  int a = 5;
+  int ele = 5;
   MatchFunc *f = &isDivisible;
-  insertElements(&util,array);
-  void *element = findFirst(util,f,&a);
+  insertElements(&arr_util,array);
+  void *element = findFirst(arr_util,f,&ele);
   assert(element==NULL);
-  printf("✓ test_findfirst_gives_null_when_does_not_match_the_critiria\n");
+  printf("✓ test_findfirst_gives_null_when_does_not_match_the_critiria\n\n");
 };
 
+void test_findLast_returns_pointer_of_the_first_element_from_last_that_matches_criteria_for_isDivisible() {
+  ArrayUtil arr_util = create(4, 5);
+	int array[] = {1,2,3,4,5};
+	int ele = 5;
+	int *element;
+	insertElements(&arr_util, array);
+	element = findLast(arr_util, isDivisible, &ele);
+	assert(*element==5);
+	dispose(arr_util);
+  printf("✓ test_findLast_returns_pointer_of_the_first_element_from_last_that_matches_criteria_for_isDivisible\n\n");
+}
+
+void test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isDivisible () {
+  ArrayUtil arr_util = create(4, 5);
+	int array[] = {1,2,3,4,5};
+  int ele = 7;
+	int *element;
+	insertElements(&arr_util, array);
+	element = findLast(arr_util, isDivisible, &ele);
+	assert(element==NULL);
+	dispose(arr_util);
+  printf("✓ test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isDivisible\n\n");
+}
 int main (void){
   test_create_returns_new_array_utils();
   test_create_wheather_the_values_are_0_after_allocating_memmory();
@@ -134,5 +157,7 @@ int main (void){
   test_for_dispose();
   test_findfirst_gives_the_first_element_that_matches_the_critiria();
   test_findfirst_gives_null_when_does_not_match_the_critiria();
+  test_findLast_returns_pointer_of_the_first_element_from_last_that_matches_criteria_for_isDivisible();
+  test_findLast_returns_NULL_if_none_of_the_elements_matches_criteria_for_isDivisible();
   return 0;
 };

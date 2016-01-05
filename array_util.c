@@ -40,11 +40,20 @@ void dispose(ArrayUtil arr){
   free(arr.base);
 };
 
-void* findFirst(ArrayUtil util, MatchFunc* match, void* hint){
-  for (int i = 0; i < util.length; i++) {
-    void *item = util.base + (i * util.type_size);
-    if(match(hint,item) == 1)
+void* findFirst(ArrayUtil arr, MatchFunc* func, void* hint){
+  for (int i = 0; i < arr.length; i++) {
+    void *item = arr.base + (i * arr.type_size);
+    if(func(hint,item) == 1)
       return item;
   }
   return NULL;
+};
+
+void * findLast(ArrayUtil arr, MatchFunc* func, void* hint){
+	for(int i=arr.length-1; i>=0; i--){
+		void *item = arr.base+(i * arr.type_size);
+		if (func(hint, item)==1)
+			return item;
+	}
+	return NULL;
 };
