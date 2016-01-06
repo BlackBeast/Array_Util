@@ -181,6 +181,28 @@ void test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria() {
   printf("✓ test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria\n\n");
 };
 
+void test_for_filter_which_provide_filtered_array_and_length_of_elements(){
+  ArrayUtil arr_util = create(4,5);
+  int array[] ={2,3,4,5,9};
+  insertElements(&arr_util,array);
+  ArrayUtil is_even = create(4,2);
+  int matching_elements = filter(arr_util,isEven,NULL,is_even.base,is_even.length);
+  assert(matching_elements == 2);
+  int*ptr =is_even.base;
+  printf("✓ test_for_filter_which_provide_filtered_array_and_length_of_elements\n\n");
+};
+
+void test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_found(){
+  ArrayUtil arr_util = create(4,5);
+  int array[] ={2,3,4,5,9};
+  int ele = 7;
+  insertElements(&arr_util,array);
+  ArrayUtil is_divisible_by_7 = create(4,2);
+  int matching_elements = filter(arr_util,isDivisible,&ele,is_divisible_by_7.base,is_divisible_by_7.length);
+  assert(matching_elements == 0);
+  printf("✓ test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_found\n\n");
+};
+
 int main (void){
   test_create_returns_new_array_utils();
   test_create_wheather_the_values_are_0_after_allocating_memmory();
@@ -199,5 +221,7 @@ int main (void){
   test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria();
   test_count_returns_count_of_the_number_of_elements_that_matches_given_criteria_for_isDivisible();
   test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria();
+  test_for_filter_which_provide_filtered_array_and_length_of_elements();
+  test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_found();
   return 0;
 };

@@ -58,12 +58,26 @@ void * findLast(ArrayUtil arr, MatchFunc* func, void* hint){
 	return NULL;
 };
 
-int count(ArrayUtil util, MatchFunc* match, void* hint){
+int count(ArrayUtil arr, MatchFunc* func, void* hint){
 	int count=0;
-	for(int i=0; i<util.length; i++){
-		void *item = util.base+(i * util.type_size);
-		if(match(hint, item))
+	for(int i=0; i<arr.length; i++){
+		void *item = arr.base+(i * arr.type_size);
+		if(func(hint, item))
 			count++;
 	}
 	return count;
+};
+
+int filter(ArrayUtil arr, MatchFunc* func, void* hint, void** destination, int maxItems){
+  int length = 0;
+  for (int i = 0; i < arr.length-1; i++) {
+    if(length > maxItems) break;
+    void *item = arr.base + (i * arr.type_size);
+    if(func(hint,item) == 1){
+      destination[length] = item;
+      // memcpy(destination[length],item,arr.type_size);
+      length ++;
+    }
+  }
+  return length;
 };
