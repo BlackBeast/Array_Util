@@ -203,6 +203,29 @@ void test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_foun
   printf("✓ test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_found\n\n");
 };
 
+void convert_to_even(void* hint, void* sourceItem, void* destinationItem){
+  if(*(int*)sourceItem %2 ==0)
+    *(int *)destinationItem = *(int *)sourceItem;
+  else
+    *(int*)destinationItem = (*(int*)sourceItem)+1;
+};
+
+void test_map_by_using_a_converting_function_and_formed_an_destination_array_after_convertion(){
+  ArrayUtil arr_util_source = create(4,5);
+  ArrayUtil arr_util_destination = create(4,5);
+  ArrayUtil expected_array = create(4,5);
+  int array[] ={4,6,8,6,4};
+  insertElements(&expected_array,array);
+  int elements[] ={3,5,7,6,4};
+  insertElements(&arr_util_source,elements);
+  map(arr_util_source,arr_util_destination,convert_to_even,NULL);
+  int *dest = arr_util_destination.base;
+  int *expect = expected_array.base;
+  assert(areEqual(expected_array,arr_util_destination)==1);
+  printf("✓ test_map_by_using_a_converting_function_and_formed_an_destination_array_after_convertion\n\n");
+
+};
+
 int main (void){
   test_create_returns_new_array_utils();
   test_create_wheather_the_values_are_0_after_allocating_memmory();
@@ -223,5 +246,6 @@ int main (void){
   test_count_returns_ZERO_if_none_of_the_elements_matches_given_criteria();
   test_for_filter_which_provide_filtered_array_and_length_of_elements();
   test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_found();
+  test_map_by_using_a_converting_function_and_formed_an_destination_array_after_convertion();
   return 0;
 };

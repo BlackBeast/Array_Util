@@ -5,6 +5,7 @@ typedef struct array_util{
 }ArrayUtil;
 
 typedef int (MatchFunc)(void* hint, void* item);
+typedef void (ConvertFunc)(void* hint, void* sourceItem, void* destinationItem);
 
 ArrayUtil create (int,int);
 
@@ -23,3 +24,5 @@ void* findLast(ArrayUtil , MatchFunc* , void* );
 int count(ArrayUtil , MatchFunc* , void* );
 
 int filter(ArrayUtil , MatchFunc* , void* , void** , int);
+
+void map(ArrayUtil , ArrayUtil , ConvertFunc* , void* );

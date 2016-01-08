@@ -75,9 +75,20 @@ int filter(ArrayUtil arr, MatchFunc* func, void* hint, void** destination, int m
     void *item = arr.base + (i * arr.type_size);
     if(func(hint,item) == 1){
       destination[length] = item;
-      // memcpy(destination[length],item,arr.type_size);
       length ++;
     }
   }
   return length;
+};
+
+
+
+void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
+  void *src_base = source.base;
+  void *dest_base = destination.base;
+  for (size_t i = 0; i < source.length; i++) {
+    convert(NULL,src_base,dest_base);
+    src_base+=source.type_size;
+    dest_base+=source.type_size;
+  }
 };
