@@ -84,11 +84,19 @@ int filter(ArrayUtil arr, MatchFunc* func, void* hint, void** destination, int m
 
 
 void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
-  void *src_base = source.base;
-  void *dest_base = destination.base;
+  void *source_base = source.base;
+  void *destination_base = destination.base;
   for (size_t i = 0; i < source.length; i++) {
-    convert(NULL,src_base,dest_base);
-    src_base+=source.type_size;
-    dest_base+=source.type_size;
+    convert(NULL,source_base,destination_base);
+    source_base+=source.type_size;
+    destination_base+=source.type_size;
   }
+};
+
+void forEach(ArrayUtil arr, OperationFunc* func, void* hint){
+  void *base = arr.base;
+  for (size_t i = 0; i < arr.length; i++) {
+    func(hint,base);
+    base+=arr.type_size;
+  };
 };

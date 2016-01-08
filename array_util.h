@@ -6,6 +6,7 @@ typedef struct array_util{
 
 typedef int (MatchFunc)(void* hint, void* item);
 typedef void (ConvertFunc)(void* hint, void* sourceItem, void* destinationItem);
+typedef void (OperationFunc)(void* hint, void* item);
 
 ArrayUtil create (int,int);
 
@@ -26,3 +27,5 @@ int count(ArrayUtil , MatchFunc* , void* );
 int filter(ArrayUtil , MatchFunc* , void* , void** , int);
 
 void map(ArrayUtil , ArrayUtil , ConvertFunc* , void* );
+
+void forEach(ArrayUtil , OperationFunc* , void* );

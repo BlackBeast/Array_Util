@@ -226,6 +226,45 @@ void test_map_by_using_a_converting_function_and_formed_an_destination_array_aft
 
 };
 
+void pdt_of_two(void* hint, void* item){
+  *(int*)item = (*(int*)item)*2;
+};
+
+
+void test_forEach_performs_operation_on_each_item_in_the_array(){
+  ArrayUtil arr_util_source = create(4,5);
+  int elements[] ={1,2,3,4,5};
+  insertElements(&arr_util_source,elements);
+  ArrayUtil expected_array = create(4,5);
+  int array[] ={2,4,6,8,10};
+  insertElements(&expected_array,array);
+
+  forEach(arr_util_source,pdt_of_two,NULL);
+  int *dest = arr_util_source.base;
+  int *expect = expected_array.base;
+  assert(areEqual(expected_array,arr_util_source)==1);
+  printf("✓ test_forEach_performs_operation_on_each_item_in_the_array\n\n");
+};
+
+  void divide_by_hint(void* hint, void* item){
+  *(int*)item = (*(int*)item)/(*(int*)hint);
+};
+
+void test_forEach_performs_operation_on_each_item_divide_by_hint_on_the_array(){
+  ArrayUtil arr_util_source = create(4,5);
+  int elements[] ={10,20,30,40,50};
+  insertElements(&arr_util_source,elements);
+  ArrayUtil expected_array = create(4,5);
+  int array[] ={2,4,6,8,10};
+  insertElements(&expected_array,array);
+  int num = 5;
+  forEach(arr_util_source,divide_by_hint,&num);
+  int *dest = arr_util_source.base;
+  int *expect = expected_array.base;
+  assert(areEqual(expected_array,arr_util_source)==1);
+  printf("✓ test_forEach_performs_operation_on_each_item_divide_by_hint_on_the_array\n\n");
+};
+
 int main (void){
   test_create_returns_new_array_utils();
   test_create_wheather_the_values_are_0_after_allocating_memmory();
@@ -247,5 +286,7 @@ int main (void){
   test_for_filter_which_provide_filtered_array_and_length_of_elements();
   test_filter_gives_the_filtered_array_and_returns_length_0_when_no_item_found();
   test_map_by_using_a_converting_function_and_formed_an_destination_array_after_convertion();
+  test_forEach_performs_operation_on_each_item_in_the_array();
+  test_forEach_performs_operation_on_each_item_divide_by_hint_on_the_array();
   return 0;
 };
