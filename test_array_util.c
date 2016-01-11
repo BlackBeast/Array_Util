@@ -246,7 +246,7 @@ void test_forEach_performs_operation_on_each_item_in_the_array(){
   printf("✓ test_forEach_performs_operation_on_each_item_in_the_array\n\n");
 };
 
-  void divide_by_hint(void* hint, void* item){
+void divide_by_hint(void* hint, void* item){
   *(int*)item = (*(int*)item)/(*(int*)hint);
 };
 
@@ -263,6 +263,32 @@ void test_forEach_performs_operation_on_each_item_divide_by_hint_on_the_array(){
   int *expect = expected_array.base;
   assert(areEqual(expected_array,arr_util_source)==1);
   printf("✓ test_forEach_performs_operation_on_each_item_divide_by_hint_on_the_array\n\n");
+};
+
+
+void* is_greater(void* hint, void* previousItem, void* item){
+  if(*(int *)previousItem < *(int *)item)
+    *(int *)previousItem = *(int *)item;
+};
+
+void test_reduce_returns_the_reduces_array_by_a_condition_and_return_the_answer(){
+  ArrayUtil arr_util = create(4,5);
+  int array[] ={1,6,8,7,4};
+  insertElements(&arr_util,array);
+  int initialValue = 0;
+  int value = *(int*)reduce(arr_util,is_greater,NULL,&initialValue);
+  assert(value == 8);
+  printf("✓ test_reduce_returns_the_reduces_array_by_a_condition_and_return_the_answer\n\n");
+};
+
+void test_reduce_returns_the_initialValue__by_a_condition_if_there_is_no_matching_element(){
+  ArrayUtil arr_util = create(4,5);
+  int array[] ={1,6,8,7,4};
+  insertElements(&arr_util,array);
+  int initialValue = 9;
+  int value = *(int*)reduce(arr_util,is_greater,NULL,&initialValue);
+  assert(value == 9);
+  printf("✓ test_reduce_returns_the_initialValue__by_a_condition_if_there_is_no_matching_element\n\n");
 };
 
 int main (void){
@@ -288,5 +314,7 @@ int main (void){
   test_map_by_using_a_converting_function_and_formed_an_destination_array_after_convertion();
   test_forEach_performs_operation_on_each_item_in_the_array();
   test_forEach_performs_operation_on_each_item_divide_by_hint_on_the_array();
+  test_reduce_returns_the_reduces_array_by_a_condition_and_return_the_answer();
+  test_reduce_returns_the_initialValue__by_a_condition_if_there_is_no_matching_element();
   return 0;
 };

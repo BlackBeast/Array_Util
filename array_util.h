@@ -7,6 +7,7 @@ typedef struct array_util{
 typedef int (MatchFunc)(void* hint, void* item);
 typedef void (ConvertFunc)(void* hint, void* sourceItem, void* destinationItem);
 typedef void (OperationFunc)(void* hint, void* item);
+typedef void* (ReducerFunc)(void* hint, void* previousItem, void* item);
 
 ArrayUtil create (int,int);
 
@@ -29,3 +30,5 @@ int filter(ArrayUtil , MatchFunc* , void* , void** , int);
 void map(ArrayUtil , ArrayUtil , ConvertFunc* , void* );
 
 void forEach(ArrayUtil , OperationFunc* , void* );
+
+void *reduce(ArrayUtil , ReducerFunc* , void* , void* );

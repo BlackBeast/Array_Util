@@ -100,3 +100,15 @@ void forEach(ArrayUtil arr, OperationFunc* func, void* hint){
     base+=arr.type_size;
   };
 };
+
+void *reduce(ArrayUtil arr, ReducerFunc* reducer, void* hint, void* intialValue){
+  void *base = arr.base;
+  void *reduced = (void *)calloc(1, arr.length);
+	memcpy(reduced, intialValue, arr.length);
+
+	for (int i = 0; i < arr.length; ++i){
+		reducer(hint, reduced, base);
+		base += arr.type_size;
+	}
+	return reduced;
+};
